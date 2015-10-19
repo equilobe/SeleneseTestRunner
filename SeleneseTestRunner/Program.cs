@@ -13,6 +13,22 @@ namespace SeleneseTestRunner
 
         static void Main(string[] args)
         {
+            //ShowTestStats();
+            new SeleniumTestRunner().Run();
+
+        }
+
+        private static void ShowTestStats()
+        {
+            IEnumerable<Command> allCommands = GetAllCommands();
+
+            ShowCommandStats(allCommands);
+
+            ShowSelectorStats(allCommands);
+        }
+
+        private static IEnumerable<Command> GetAllCommands()
+        {
             var testFiles = Directory.GetFiles(@"C:\Users\badea\Code\BPApp\e2e-tests", "*.html", SearchOption.AllDirectories);
 
             var allCommands = testFiles.SelectMany(file =>
@@ -26,8 +42,31 @@ namespace SeleneseTestRunner
                     return Enumerable.Empty<Command>();
                 }
             });
+            return allCommands;
+        }
+
+        private static void ShowSelectorStats(IEnumerable<Command> allCommands)
+        {
+            var selectors = allCommands.Select(command => command.Selector);
 
 
+            var seletorPrefixes = new string[] { "css=", "//", "name=", "xpath=", "link=" };
+
+            foreach (var prefix in seletorPrefixes)
+            {
+                var count = selectors.Where(selector => selector.StartsWith(prefix))
+                    .Count();
+                Console.WriteLine(prefix + " " + count);
+            }
+
+            var otherSelectors = selectors.Where(selector => !seletorPrefixes.Any(prefix => selector.StartsWith(prefix))).Distinct();
+
+            foreach (var selector in otherSelectors)
+                Console.WriteLine(selector);
+        }
+
+        private static void ShowCommandStats(IEnumerable<Command> allCommands)
+        {
             var distinctCommandNames = allCommands.Select(command => command.Name)
                 .GroupBy(name => name)
                 .OrderBy(group => group.Count());
@@ -37,27 +76,8 @@ namespace SeleneseTestRunner
 
             Console.WriteLine(distinctCommandNames.Count());
 
-
-            var selectors = allCommands.Select(command => command.Selector);
-
-
-            var seletorPrefixes = new string[] { "css=", "//", "name=", "xpath=", "link=", "/" };
-
-            foreach(var prefix in seletorPrefixes)
-            {
-                var count = selectors.Where(selector => selector.StartsWith(prefix))
-                    .Count();
-                Console.WriteLine(prefix + " " + count);            
-            }
-
-            var otherSelectors = selectors.Where(selector => !seletorPrefixes.Any(prefix => selector.StartsWith(prefix)));
-
-            foreach (var selector in otherSelectors)
-                Console.WriteLine(selector);
-
             Console.WriteLine("command count " + allCommands.Count());
         }
-
 
     }
 
