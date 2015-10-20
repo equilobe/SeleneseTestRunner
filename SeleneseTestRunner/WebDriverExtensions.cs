@@ -11,25 +11,13 @@ using System.Text.RegularExpressions;
 
 namespace SeleneseTestRunner
 {
-    class SeleniumTestRunner
+    static class WebDriverExtensions
     {
 
-        IWebDriver driver;
-
-        public void Run()
-        {
-            using (driver = new ChromeDriver())
-            {
-                driver.Navigate().GoToUrl("https://test.boardprospects.com");
-
-                var element = GetElement("css=.btn:contains(\"Join as an Individual\")");
-                
-                Console.WriteLine(element.TagName);
-            }
-        }
+ 
 
 
-        private IWebElement GetElement(string selector)
+        public static IWebElement[] GetElements(this IWebDriver driver, string selector)
         {
             var complexSelector = GetContainsSelector(selector);
             var by = GetBy(complexSelector.SimpleSelector);
@@ -37,17 +25,17 @@ namespace SeleneseTestRunner
             var elements = driver.FindElements(by);
 
             if (!elements.Any())
-                WaitForElement(by);
+                driver.WaitForElement(by);
 
             elements = driver.FindElements(by);
 
             if (!string.IsNullOrEmpty(complexSelector.ContainedText))
-                return elements.Single(e => e.Text.Contains(complexSelector.ContainedText));
+                return elements.Where(e => e.Text.Contains(complexSelector.ContainedText)).ToArray();
 
-            return elements.Single();
+            return elements.ToArray();
         }
 
-        void WaitForElement(By by)
+        static void WaitForElement(this IWebDriver driver, By by)
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(2));
             wait.Until(d => d.FindElements(by).Any());
@@ -72,7 +60,7 @@ namespace SeleneseTestRunner
             return By.XPath(selector);
         }
 
-        ContainsSelector GetContainsSelector(string selector)
+        static ContainsSelector GetContainsSelector(string selector)
         {
             if (selector.ToLower().StartsWith("css=") && selector.Contains(":contains("))
                 return GetCssContainsSelector(selector);
