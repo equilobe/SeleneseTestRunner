@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using SeleneseTestRunner.Commands;
 
-namespace SeleneseTestRunner.Executors
+namespace SeleneseTestRunner.Commands
 {
     class CommandExecutor
     {

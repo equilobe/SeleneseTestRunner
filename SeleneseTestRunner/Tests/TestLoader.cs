@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using SeleneseTestRunner.Commands;
 
-namespace SeleneseTestRunner.Loaders
+namespace SeleneseTestRunner.Tests
 {
     class TestLoader
     {

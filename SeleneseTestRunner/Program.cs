@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using SeleneseTestRunner.Commands;
-using SeleneseTestRunner.Executors;
-using SeleneseTestRunner.Loaders;
+using SeleneseTestRunner.Stats;
+using SeleneseTestRunner.Suites;
+using SeleneseTestRunner.Razor;
 
 namespace SeleneseTestRunner
 {
@@ -18,8 +19,10 @@ namespace SeleneseTestRunner
         {
             //TestStats.ShowTestStats();
             try
-            {
-                SuiteExecutor.Execute(null, null);
+            {                
+                var result = SuiteExecutor.Execute(null, null);                              
+                var view = new RazorParser().Parse("SuiteResult", result);
+                File.WriteAllText(@"test-results.html", view);
             }
             catch (Exception ex)
             {

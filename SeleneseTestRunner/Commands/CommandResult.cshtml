@@ -1,0 +1,12 @@
+﻿@inherits SeleneseTestRunner.RazorTemplate<SeleneseTestRunner.Commands.CommandResult>
+
+@{    
+    var back = Model.IsSkipped ? "" : Model.HasError ? "bg-danger" : Model.HasWarning ? "bg-warning":  "bg-success";
+}
+
+<div class="row @back" >
+    <div class="col-md-2"><b>@Model.Command.Name</b></div>
+    <div class="col-md-5">@Model.Command.Selector</div>
+    <div class="col-md-2">@Model.Command.Parameter</div>
+    <div class="col-md-3">@Model.Comments</div>
+</div>

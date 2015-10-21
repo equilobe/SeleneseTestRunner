@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 
 namespace SeleneseTestRunner.Commands
 {
+    
     abstract class SingleElementCommand : ICommand
     {
         public CommandResult Execute(IWebDriver driver, CommandDesc command)

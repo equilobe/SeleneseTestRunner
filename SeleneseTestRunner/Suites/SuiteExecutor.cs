@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using SeleneseTestRunner.Tests;
 
-namespace SeleneseTestRunner.Executors
+namespace SeleneseTestRunner.Suites
 {
     class SuiteExecutor
     {
-        public static void Execute(string suitePath, string baseUrl)
+        public static SuiteResult Execute(string suitePath, string baseUrl)
         {
-
+            var result = new SuiteResult();
             var tests = new string[]
             {
                 @"C:\Users\badea\Code\BPApp\e2e-tests\MemberTests\Authentication\LogIn.html",
-                @"C:\Users\badea\Code\BPApp\e2e-tests\MemberTests\GeneralTests\BrowseThroughApp.html",
+                //@"C:\Users\badea\Code\BPApp\e2e-tests\MemberTests\GeneralTests\BrowseThroughApp.html",
                 @"C:\Users\badea\Code\BPApp\e2e-tests\MemberTests\Authentication\LogOut.html"
             };
 
@@ -27,18 +28,13 @@ namespace SeleneseTestRunner.Executors
                 foreach (var test in tests)
                 {
                     var testResult = TestExecutor.ExecuteTest(driver, test);
+                    result.TestResults.Add(testResult);
                 }
             }
+
+            return result;
         }       
     }
 
-    class SuiteResult
-    {
-        public SuiteResult()
-        {
-            TestResults = new List<TestResult>();
-        }
 
-        public List<TestResult> TestResults { get; set; }
-    }
 }

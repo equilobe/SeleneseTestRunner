@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SeleneseTestRunner.Loaders;
+using SeleneseTestRunner.Commands;
+using SeleneseTestRunner.Tests;
 
-namespace SeleneseTestRunner
+namespace SeleneseTestRunner.Stats
 {
     class TestStats
     {

@@ -1,0 +1,10 @@
+﻿@inherits SeleneseTestRunner.RazorTemplate<SeleneseTestRunner.Tests.TestResult>
+
+<div class="row">
+    <h2>@Model.Path</h2>    
+</div>
+
+@foreach(var commandResult in Model.CommandResults)
+{
+    @Include("CommandResult", commandResult)
+}

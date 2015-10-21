@@ -37,7 +37,7 @@ namespace SeleneseTestRunner
 
         static void WaitForElement(this IWebDriver driver, By by)
         {
-            var wait = new WebDriverWait(driver, TimeSpan.FromMinutes(2));
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             wait.Until(d => d.FindElements(by).Any());
         }
 
