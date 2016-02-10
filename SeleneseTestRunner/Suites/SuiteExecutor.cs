@@ -23,7 +23,7 @@ namespace SeleneseTestRunner.Suites
 
             using (IWebDriver driver = new ChromeDriver())
             {
-                driver.Navigate().GoToUrl("https://test.boardprospects.com");
+                driver.Navigate().GoToUrl(baseUrl);
 
                 foreach (var test in tests)
                 {

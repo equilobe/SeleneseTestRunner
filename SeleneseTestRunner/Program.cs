@@ -19,8 +19,8 @@ namespace SeleneseTestRunner
         {
             //TestStats.ShowTestStats();
             try
-            {                
-                var result = SuiteExecutor.Execute(null, null);                              
+            {
+                var result = SuiteExecutor.Execute(null, "https://test.boardprospects.com");
                 var view = new RazorParser().Parse("SuiteResult", result);
                 File.WriteAllText(@"test-results.html", view);
             }
