@@ -18,11 +18,16 @@ namespace SeleneseTestRunner
         static void Main(string[] args)
         {
             //TestStats.ShowTestStats(@"..\..\..\..\BPApp\e2e-tests");
+
+            var suitePath = @"..\..\..\..\BPApp\e2e-tests\Member\MemberSuite.html";
+            var baseUrl = "https://dev.boardprospects.com";
+            var resultsFile = "test-results.html";
+
             try
             {
-                var result = SuiteExecutor.Execute(@"..\..\..\..\BPApp\e2e-tests\Member\MemberSuite.html", "https://test.boardprospects.com");
+                var result = SuiteExecutor.Execute(suitePath, baseUrl);
                 var view = new RazorParser().Parse("SuiteResult", result);
-                File.WriteAllText(@"test-results.html", view);
+                File.WriteAllText(resultsFile, view);
             }
             catch (Exception ex)
             {
