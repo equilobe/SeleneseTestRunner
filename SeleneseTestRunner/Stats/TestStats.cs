@@ -12,18 +12,18 @@ namespace SeleneseTestRunner.Stats
     class TestStats
     {
 
-        public static void ShowTestStats()
+        public static void ShowTestStats(string path)
         {
-            IEnumerable<CommandDesc> allCommands = GetAllCommands();
+            IEnumerable<CommandDesc> allCommands = GetAllCommands(path);
 
             ShowCommandStats(allCommands);
 
             ShowSelectorStats(allCommands);
         }
 
-        private static IEnumerable<CommandDesc> GetAllCommands()
+        private static IEnumerable<CommandDesc> GetAllCommands(string path)
         {
-            var testFiles = Directory.GetFiles(@"C:\Users\badea\Code\BPApp\e2e-tests", "*.html", SearchOption.AllDirectories);
+            var testFiles = Directory.GetFiles(path, "*.html", SearchOption.AllDirectories);
 
             var allCommands = testFiles.SelectMany(file =>
             {

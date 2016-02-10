@@ -17,7 +17,7 @@ namespace SeleneseTestRunner
 
         static void Main(string[] args)
         {
-            //TestStats.ShowTestStats();
+            //TestStats.ShowTestStats(@"..\..\..\..\BPApp\e2e-tests");
             try
             {
                 var result = SuiteExecutor.Execute(@"..\..\..\..\BPApp\e2e-tests\MemberTests\MemberTests.html", "https://test.boardprospects.com");
