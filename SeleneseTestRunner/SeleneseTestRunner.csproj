@@ -74,6 +74,7 @@
     <Compile Include="Razor\RazorParser.cs" />
     <Compile Include="Suites\SuiteExecutor.cs" />
     <Compile Include="Suites\SuiteResult.cs" />
+    <Compile Include="Tests\TestDesc.cs" />
     <Compile Include="Tests\TestExecutor.cs" />
     <Compile Include="Commands\SingleElementCommand.cs" />
     <Compile Include="Tests\TestLoader.cs" />

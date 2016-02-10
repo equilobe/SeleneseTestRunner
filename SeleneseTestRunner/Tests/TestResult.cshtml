@@ -1,7 +1,14 @@
 ﻿@inherits SeleneseTestRunner.RazorTemplate<SeleneseTestRunner.Tests.TestResult>
 
 <div class="row">
-    <h2>@Model.Path</h2>    
+    @if (!string.IsNullOrEmpty(@Model.Name))
+    {
+        <h2>@Model.Name</h2>
+    }
+    else
+    {
+        <h2>@Model.Path</h2>
+    }
 </div>
 
 @foreach(var commandResult in Model.CommandResults)

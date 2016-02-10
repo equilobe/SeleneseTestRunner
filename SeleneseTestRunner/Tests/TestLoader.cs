@@ -13,7 +13,7 @@ namespace SeleneseTestRunner.Tests
 
         XmlNamespaceManager nsmgr;
 
-        public IEnumerable<CommandDesc> LoadFromFile(string filePath)
+        public TestDesc LoadFromFile(string filePath)
         {
             var doc = new XmlDocument();
             doc.Load(filePath);
@@ -21,12 +21,19 @@ namespace SeleneseTestRunner.Tests
             nsmgr = new XmlNamespaceManager(doc.NameTable);
             nsmgr.AddNamespace("bk", "http://www.w3.org/1999/xhtml");
 
+            var title = doc.DocumentElement.SelectSingleNode("descendant::bk:title", nsmgr).InnerText;
+
             var tbody = doc.DocumentElement.SelectSingleNode("descendant::bk:tbody", nsmgr);
             var rows = tbody.SelectNodes("descendant::bk:tr", nsmgr);
 
             var commands = rows.OfType<XmlNode>()
                                .Select(GetCommandFromRow);
-            return commands;
+
+            return new TestDesc
+            {
+                Name = title,
+                Commands = commands
+            };
         }
 
         CommandDesc GetCommandFromRow(XmlNode node)

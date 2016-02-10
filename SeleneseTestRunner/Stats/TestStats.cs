@@ -29,7 +29,7 @@ namespace SeleneseTestRunner.Stats
             {
                 try
                 {
-                    return new TestLoader().LoadFromFile(file).ToArray();
+                    return new TestLoader().LoadFromFile(file).Commands.ToArray();
                 }
                 catch
                 {

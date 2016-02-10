@@ -15,6 +15,7 @@ namespace SeleneseTestRunner.Tests
         }
 
         public string Path { get; set; }
+        public string Name { get; set; }
         public List<CommandResult> CommandResults { get; set; }
         public bool IsFailed { get; set; }
         public bool HasError { get; set; }

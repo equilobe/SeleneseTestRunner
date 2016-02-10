@@ -14,10 +14,10 @@ namespace SeleneseTestRunner.Tests
         {
             try
             {
-                var result = new TestResult { Path = file };
-                var commands = new TestLoader().LoadFromFile(file);
+                var test = new TestLoader().LoadFromFile(file);
+                var result = new TestResult { Path = file, Name = test.Name };
                 
-                foreach (var command in commands)
+                foreach (var command in test.Commands)
                     ProcessCommand(driver, result, command);
                 return result;
             }
