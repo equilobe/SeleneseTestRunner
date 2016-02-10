@@ -20,7 +20,7 @@ namespace SeleneseTestRunner
             //TestStats.ShowTestStats(@"..\..\..\..\BPApp\e2e-tests");
             try
             {
-                var result = SuiteExecutor.Execute(@"..\..\..\..\BPApp\e2e-tests\MemberTests\MemberTests.html", "https://test.boardprospects.com");
+                var result = SuiteExecutor.Execute(@"..\..\..\..\BPApp\e2e-tests\Member\MemberSuite.html", "https://test.boardprospects.com");
                 var view = new RazorParser().Parse("SuiteResult", result);
                 File.WriteAllText(@"test-results.html", view);
             }
