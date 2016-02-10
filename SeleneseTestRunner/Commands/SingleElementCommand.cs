@@ -35,7 +35,8 @@ namespace SeleneseTestRunner.Commands
 
         private IWebElement GetElement(IWebDriver driver, CommandDesc command, CommandResult result)
         {
-            var elements = driver.GetElements(command.Selector);
+            var timeout = GetTimeout(command);
+            var elements = driver.GetElements(command.Selector, timeout);
             var count = elements.Count();
 
             if (count == 0)
@@ -50,6 +51,15 @@ namespace SeleneseTestRunner.Commands
             }
 
             return elements.FirstOrDefault();
+        }
+
+        private int? GetTimeout(CommandDesc command)
+        {
+            int timeout;
+            if (Int32.TryParse(command.Parameter, out timeout))
+                return timeout;
+
+            return null;
         }
 
         abstract protected void Execute(IWebElement element, CommandDesc command);

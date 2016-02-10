@@ -13,11 +13,9 @@ namespace SeleneseTestRunner
 {
     static class WebDriverExtensions
     {
+        const int DEFAULT_TIMEOUT = 10;
 
- 
-
-
-        public static IWebElement[] GetElements(this IWebDriver driver, string selector)
+        public static IWebElement[] GetElements(this IWebDriver driver, string selector, int? timeout = null)
         {
             var complexSelector = GetContainsSelector(selector);
             var by = GetBy(complexSelector.SimpleSelector);
@@ -25,7 +23,7 @@ namespace SeleneseTestRunner
             var elements = driver.FindElements(by);
 
             if (!elements.Any())
-                driver.WaitForElement(by);
+                driver.WaitForElement(by, timeout.GetValueOrDefault(DEFAULT_TIMEOUT));
 
             elements = driver.FindElements(by);
 
@@ -35,9 +33,9 @@ namespace SeleneseTestRunner
             return elements.ToArray();
         }
 
-        static void WaitForElement(this IWebDriver driver, By by)
+        static void WaitForElement(this IWebDriver driver, By by, int timeout)
         {
-            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
             wait.Until(d => d.FindElements(by).Any());
         }
 
