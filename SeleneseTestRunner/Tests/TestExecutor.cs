@@ -5,25 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using SeleneseTestRunner.Commands;
+using SeleneseTestRunner.Suites;
 
 namespace SeleneseTestRunner.Tests
 {
     class TestExecutor
     {
-        public static TestResult ExecuteTest(IWebDriver driver, string file)
+        public static TestResult ExecuteTest(IWebDriver driver, TestLocation test)
         {
             try
             {
-                var test = new TestLoader().LoadFromFile(file);
-                var result = new TestResult { Path = file, Name = test.Name };
-                
-                foreach (var command in test.Commands)
+                var testDesc = new TestLoader().LoadFromFile(test.Path);
+                var result = new TestResult { Path = test.Path, Name = testDesc.Name };
+
+                foreach (var command in testDesc.Commands)
                     ProcessCommand(driver, result, command);
                 return result;
             }
             catch (Exception ex)
             {
-                return new TestResult { Path = file, HasError = true, IsFailed = true, Comments = ex.Message };
+                return new TestResult { Path = test.Path, Name = test.Name, HasError = true, IsFailed = true, Comments = ex.Message };
             }
         }
 

@@ -14,6 +14,7 @@ namespace SeleneseTestRunner.Suites
             TestResults = new List<TestResult>();
         }
 
+        public string Name { get; set; }
         public List<TestResult> TestResults { get; set; }
     }
 }
