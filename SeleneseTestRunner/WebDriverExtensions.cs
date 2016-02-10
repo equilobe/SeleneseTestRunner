@@ -42,6 +42,9 @@ namespace SeleneseTestRunner
         static By GetBy(string selector)
         {
             var lowerSelector = selector.ToLower();
+            if (lowerSelector.StartsWith("id="))
+                return By.Id(selector.Substring(3));
+
             if (lowerSelector.StartsWith("css="))
                 return By.CssSelector(selector.Substring(4));
 
