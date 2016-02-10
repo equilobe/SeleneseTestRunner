@@ -30,4 +30,9 @@ namespace SeleneseTestRunner.Commands
     {
 
     }
+
+    class OpenCommand : NavigateToUrlCommand
+    {
+
+    }
 }

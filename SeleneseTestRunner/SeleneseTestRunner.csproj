@@ -69,6 +69,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\CommandExecutor.cs" />
     <Compile Include="Commands\Commands.cs" />
+    <Compile Include="Commands\NavigateToUrlCommand.cs" />
     <Compile Include="RazorTemplate.cs" />
     <Compile Include="Razor\RazorParser.cs" />
     <Compile Include="Suites\SuiteExecutor.cs" />
