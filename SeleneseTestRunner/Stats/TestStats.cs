@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SeleneseTestRunner.Commands;
 using SeleneseTestRunner.Tests;
+using SeleneseTestRunner.Suites;
 
 namespace SeleneseTestRunner.Stats
 {
@@ -23,20 +24,22 @@ namespace SeleneseTestRunner.Stats
 
         private static IEnumerable<CommandDesc> GetAllCommands(string path)
         {
-            var testFiles = Directory.GetFiles(path, "*.html", SearchOption.AllDirectories);
-
-            var allCommands = testFiles.SelectMany(file =>
+            var suites = Directory.GetFiles(path, "*Suite.html", SearchOption.AllDirectories);
+            return suites.SelectMany(s =>
             {
-                try
+                var suite = SuiteLoader.LoadFromFile(s);
+                return suite.Tests.SelectMany(t =>
                 {
-                    return new TestLoader().LoadFromFile(file).Commands.ToArray();
-                }
-                catch
-                {
-                    return Enumerable.Empty<CommandDesc>();
-                }
+                    try
+                    {
+                        return new TestLoader().LoadFromFile(t.Path).Commands.ToArray();
+                    }
+                    catch
+                    {
+                        return Enumerable.Empty<CommandDesc>();
+                    }
+                });
             });
-            return allCommands;
         }
 
         private static void ShowSelectorStats(IEnumerable<CommandDesc> allCommands)
