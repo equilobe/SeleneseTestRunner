@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace SeleneseTestRunner.Commands
 {
@@ -34,5 +35,40 @@ namespace SeleneseTestRunner.Commands
     class OpenCommand : NavigateToUrlCommand
     {
 
+    }
+
+    class SelectCommand : SingleElementCommand
+    {
+        protected override void Execute(IWebElement element, CommandDesc command)
+        {
+            var selectElement = new SelectElement(element);
+
+            var lowerCommand = command.Parameter.ToLower();
+            if (lowerCommand.StartsWith("label="))
+            {
+                selectElement.SelectByText(command.Parameter.Substring(6));
+                return;
+            }
+
+            if (lowerCommand.StartsWith("value="))
+            {
+                selectElement.SelectByValue(command.Parameter.Substring(6));
+                return;
+            }
+
+            if (lowerCommand.StartsWith("index="))
+            {
+                selectElement.SelectByIndex(int.Parse(command.Parameter.Substring(6)));
+                return;
+            }
+
+            if (lowerCommand.StartsWith("id="))
+            {
+                //todo
+                return;
+            }
+
+            selectElement.SelectByText(command.Parameter);
+        }
     }
 }
