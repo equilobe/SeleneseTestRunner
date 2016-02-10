@@ -14,7 +14,7 @@ namespace SeleneseTestRunner.Commands
             try
             {
                 var result = new CommandResult { Command = command };
-                driver.Navigate().GoToUrl(command.Parameter);
+                driver.Navigate().GoToUrl(command.Selector);
                 return result;
             }
             catch (Exception ex)
