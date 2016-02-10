@@ -44,7 +44,7 @@ namespace SeleneseTestRunner.Stats
             var selectors = allCommands.Select(command => command.Selector);
 
 
-            var seletorPrefixes = new string[] { "css=", "//", "name=", "xpath=", "link=" };
+            var seletorPrefixes = new string[] { "css=", "//", "name=", "xpath=", "link=", "id=" };
 
             foreach (var prefix in seletorPrefixes)
             {
