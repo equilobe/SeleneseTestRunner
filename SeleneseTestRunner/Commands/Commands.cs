@@ -71,4 +71,26 @@ namespace SeleneseTestRunner.Commands
             selectElement.SelectByText(command.Parameter);
         }
     }
+
+    class UncheckCommand : SingleElementCommand
+    {
+        protected override void Execute(IWebElement element, CommandDesc command)
+        {
+            if (element.Selected)
+            {
+                element.Click();
+            }
+        }
+    }
+
+    class CheckCommand : SingleElementCommand
+    {
+        protected override void Execute(IWebElement element, CommandDesc command)
+        {
+            if (!element.Selected)
+            {
+                element.Click();
+            }
+        }
+    }
 }
