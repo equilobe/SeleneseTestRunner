@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 
 namespace SeleneseTestRunner.Commands
 {
-    class NavigateToUrlCommand : ICommand
+    abstract class JavaScriptCommand : ICommand
     {
         public CommandResult Execute(IWebDriver driver, CommandDesc command)
         {
             try
             {
                 var result = new CommandResult { Command = command };
-                driver.Navigate().GoToUrl(command.Selector);
+                
+                var value = ((IJavaScriptExecutor)driver).ExecuteScript(command.Selector);
+                Execute(value, command);
+
                 return result;
             }
             catch (Exception ex)
@@ -27,5 +30,7 @@ namespace SeleneseTestRunner.Commands
                 };
             }
         }
+
+        abstract protected void Execute(object scriptResult, CommandDesc command);
     }
 }

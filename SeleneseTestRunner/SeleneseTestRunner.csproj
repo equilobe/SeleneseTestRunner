@@ -70,6 +70,7 @@
     <Compile Include="Commands\CommandExecutor.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Commands\NavigateToUrlCommand.cs" />
+    <Compile Include="Commands\JavaScriptCommand.cs" />
     <Compile Include="RazorTemplate.cs" />
     <Compile Include="Razor\RazorParser.cs" />
     <Compile Include="Suites\SuiteDesc.cs" />
