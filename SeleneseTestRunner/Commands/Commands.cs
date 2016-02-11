@@ -109,7 +109,7 @@ namespace SeleneseTestRunner.Commands
         protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
             if (!element.Text.Equals(command.Parameter))
-                throw new Exception("Text does not match");
+                throw new Exception("Text does not match.");
         }
     }
 
@@ -118,7 +118,7 @@ namespace SeleneseTestRunner.Commands
         protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
             if (!element.Selected)
-                throw new Exception("Element is not checked");
+                throw new Exception("Element is not checked.");
         }
     }
 
@@ -127,7 +127,7 @@ namespace SeleneseTestRunner.Commands
         protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
             if (element.Text.Equals(command.Parameter))
-                throw new Exception("Text does match");
+                throw new Exception("Text does match.");
         }
     }
 
@@ -145,5 +145,10 @@ namespace SeleneseTestRunner.Commands
         {
             SuiteExecutor.StoreValue(command.Parameter, scriptResult.ToString());
         }
+    }
+
+    class AssertElementNotPresentCommand : NoElementCommand
+    {
+
     }
 }
