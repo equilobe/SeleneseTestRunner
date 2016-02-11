@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using SeleneseTestRunner.Commands;
+using SeleneseTestRunner.Suites;
+using System.Text.RegularExpressions;
 
 namespace SeleneseTestRunner.Commands
 {
@@ -33,7 +35,30 @@ namespace SeleneseTestRunner.Commands
             if (!Commands.ContainsKey(lowerName))
                 return new CommandResult { Command = command, IsSkipped = true };
 
+            SetVariables(command);
+
             return Commands[lowerName].Execute(driver, command);
+        }
+
+        private static void SetVariables(CommandDesc command)
+        {
+            var regex = @"(?<=\$\{)[^}]*(?=\})";
+
+            var matches = new List<Match>();
+            var match = Regex.Match(command.Parameter, regex, RegexOptions.IgnoreCase);
+            while (match.Success)
+            {
+                matches.Add(match);
+                match = match.NextMatch();
+            }
+
+            var distinctVariables = matches.Select(t => t.Value).Distinct().ToList();
+            foreach(var variable in distinctVariables)
+            {
+                var value = SuiteExecutor.GetStoredValue(variable);
+                var key = "${" + variable + "}";
+                command.Parameter = command.Parameter.Replace(key, value);
+            }
         }
     }
 

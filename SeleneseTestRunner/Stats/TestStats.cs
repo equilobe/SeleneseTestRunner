@@ -72,7 +72,7 @@ namespace SeleneseTestRunner.Stats
             Console.WriteLine("Commands: ");
 
             var commands = new string[] { "click", "type", "assertElementPresent", "verifyElementPresent", 
-                "open", "select", "sendKeys", "clickAt", "assertText", "assertChecked" };
+                "open", "select", "sendKeys", "clickAt", "assertText", "assertChecked", "assertNotText", "storeValue" };
 
             var distinctCommandNames = allCommands.Select(command => command.Name)
                 .GroupBy(name => name)

@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
+using SeleneseTestRunner.Suites;
 
 namespace SeleneseTestRunner.Commands
 {
@@ -118,6 +119,23 @@ namespace SeleneseTestRunner.Commands
         {
             if (!element.Selected)
                 throw new Exception("Element is not checked");
+        }
+    }
+
+    class AssertNotTextCommand : SingleElementCommand
+    {
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
+        {
+            if (element.Text.Equals(command.Parameter))
+                throw new Exception("Text does match");
+        }
+    }
+
+    class StoreValueCommand : SingleElementCommand
+    {
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
+        {
+            SuiteExecutor.StoreValue(command.Parameter, element.Text);
         }
     }
 }
