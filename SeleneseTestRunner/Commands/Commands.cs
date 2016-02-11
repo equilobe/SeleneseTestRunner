@@ -72,12 +72,6 @@ namespace SeleneseTestRunner.Commands
                 return;
             }
 
-            if (lowerCommand.StartsWith("id="))
-            {
-                //todo
-                return;
-            }
-
             selectElement.SelectByText(command.Parameter);
         }
     }
@@ -102,5 +96,10 @@ namespace SeleneseTestRunner.Commands
                 element.Click();
             }
         }
+    }
+
+    class SendKeysCommand : TypeCommand
+    {
+
     }
 }
