@@ -35,17 +35,18 @@ namespace SeleneseTestRunner.Commands
             if (!Commands.ContainsKey(lowerName))
                 return new CommandResult { Command = command, IsSkipped = true };
 
-            SetVariables(command);
+            command.Parameter = SetVariables(command.Parameter);
+            command.Selector = SetVariables(command.Selector);
 
             return Commands[lowerName].Execute(driver, command);
         }
 
-        private static void SetVariables(CommandDesc command)
+        private static string SetVariables(string input)
         {
             var regex = @"(?<=\$\{)[^}]*(?=\})";
 
             var matches = new List<Match>();
-            var match = Regex.Match(command.Parameter, regex, RegexOptions.IgnoreCase);
+            var match = Regex.Match(input, regex, RegexOptions.IgnoreCase);
             while (match.Success)
             {
                 matches.Add(match);
@@ -57,8 +58,10 @@ namespace SeleneseTestRunner.Commands
             {
                 var value = SuiteExecutor.GetStoredValue(variable);
                 var key = "${" + variable + "}";
-                command.Parameter = command.Parameter.Replace(key, value);
+                input = input.Replace(key, value);
             }
+
+            return input;
         }
     }
 
