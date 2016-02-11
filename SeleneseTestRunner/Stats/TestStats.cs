@@ -44,36 +44,51 @@ namespace SeleneseTestRunner.Stats
 
         private static void ShowSelectorStats(IEnumerable<CommandDesc> allCommands)
         {
+            Console.WriteLine("\nSelectors:");
+
             var selectors = allCommands.Select(command => command.Selector);
+            var selectorPrefixes = new string[] { "css=", "//", "name=", "xpath=", "link=", "id=" };
 
-
-            var seletorPrefixes = new string[] { "css=", "//", "name=", "xpath=", "link=", "id=" };
-
-            foreach (var prefix in seletorPrefixes)
+            Console.WriteLine("  Known:");
+            foreach (var prefix in selectorPrefixes)
             {
                 var count = selectors.Where(selector => selector.StartsWith(prefix))
                     .Count();
-                Console.WriteLine(prefix + " " + count);
+                Console.WriteLine("    " + prefix + " " + count);
             }
 
-            var otherSelectors = selectors.Where(selector => !seletorPrefixes.Any(prefix => selector.StartsWith(prefix))).Distinct();
+            var otherSelectors = selectors
+                .Where(selector => !selectorPrefixes.Any(prefix => selector.StartsWith(prefix)))
+                .GroupBy(selector => selector)
+                .Where(selector => !string.IsNullOrEmpty(selector.Key));
 
+            Console.WriteLine("  Unknown:");
             foreach (var selector in otherSelectors)
-                Console.WriteLine(selector);
+                Console.WriteLine("    " + selector.Key + " " + selector.Count());
         }
 
         private static void ShowCommandStats(IEnumerable<CommandDesc> allCommands)
         {
+            Console.WriteLine("Commands: ");
+
+            var commands = new string[] { "click", "type", "assertElementPresent", "verifyElementPresent", "open", "select" };
             var distinctCommandNames = allCommands.Select(command => command.Name)
                 .GroupBy(name => name)
-                .OrderBy(group => group.Count());
+                .OrderByDescending(group => group.Count());
 
-            foreach (var commandName in distinctCommandNames)
-                Console.WriteLine(commandName.Key + " " + commandName.Count());
+            var implementedCommands = distinctCommandNames.Where(group => commands.Any(command => group.Key == command));
+            var notImplementedCommands = distinctCommandNames.Where(group => !commands.Any(command => group.Key == command));
 
-            Console.WriteLine(distinctCommandNames.Count());
+            Console.WriteLine("  Known:");
+            foreach (var commandName in implementedCommands)
+                Console.WriteLine("    " + commandName.Key + " " + commandName.Count());
 
-            Console.WriteLine("command count " + allCommands.Count());
+            Console.WriteLine("  Unknown:");
+            foreach (var commandName in notImplementedCommands)
+                Console.WriteLine("    " + commandName.Key + " " + commandName.Count());
+
+            Console.WriteLine("  Distinct: " + distinctCommandNames.Count());
+            Console.WriteLine("  Commands: " + allCommands.Count());
         }
     }
 }
