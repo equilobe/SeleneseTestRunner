@@ -19,7 +19,7 @@ namespace SeleneseTestRunner.Commands
 
                 if (result.HasError)
                     return result;
-                Execute(element, command);
+                Execute(driver, element, command);
                 return result;
             }
             catch (Exception ex)
@@ -62,6 +62,6 @@ namespace SeleneseTestRunner.Commands
             return null;
         }
 
-        abstract protected void Execute(IWebElement element, CommandDesc command);
+        abstract protected void Execute(IWebDriver driver, IWebElement element, CommandDesc command);
     }
 }

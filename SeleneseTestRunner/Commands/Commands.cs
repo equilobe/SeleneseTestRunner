@@ -6,15 +6,23 @@ namespace SeleneseTestRunner.Commands
 {
     class ClickCommand : SingleElementCommand
     {
-        protected override void Execute(IWebElement element, CommandDesc command)
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
             element.Click();
         }
     }
 
+    class ClickAtCommand : SingleElementCommand
+    {
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
+        {
+            
+        }
+    }
+
     class TypeCommand : SingleElementCommand
     {
-        protected override void Execute(IWebElement element, CommandDesc command)
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
             element.SendKeys(command.Parameter);
         }
@@ -22,7 +30,7 @@ namespace SeleneseTestRunner.Commands
 
     class AssertElementPresentCommand : SingleElementCommand
     {
-        protected override void Execute(IWebElement element, CommandDesc command)
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
         }
     }
@@ -39,7 +47,7 @@ namespace SeleneseTestRunner.Commands
 
     class SelectCommand : SingleElementCommand
     {
-        protected override void Execute(IWebElement element, CommandDesc command)
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
             var selectElement = new SelectElement(element);
 
@@ -74,7 +82,7 @@ namespace SeleneseTestRunner.Commands
 
     class UncheckCommand : SingleElementCommand
     {
-        protected override void Execute(IWebElement element, CommandDesc command)
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
             if (element.Selected)
             {
@@ -85,7 +93,7 @@ namespace SeleneseTestRunner.Commands
 
     class CheckCommand : SingleElementCommand
     {
-        protected override void Execute(IWebElement element, CommandDesc command)
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
             if (!element.Selected)
             {
