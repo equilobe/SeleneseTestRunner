@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Interactions;
 
 namespace SeleneseTestRunner.Commands
 {
@@ -16,7 +17,8 @@ namespace SeleneseTestRunner.Commands
     {
         protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
-            
+            var action = new Actions(driver);
+            action.MoveToElement(element).Click().Perform();
         }
     }
 
