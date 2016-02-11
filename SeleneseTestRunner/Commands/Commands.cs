@@ -102,4 +102,13 @@ namespace SeleneseTestRunner.Commands
     {
 
     }
+    
+    class AssertTextCommand : SingleElementCommand
+    {
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
+        {
+            if (!element.Text.Equals(command.Parameter))
+                throw new Exception("Text does not match");
+        }
+    }
 }
