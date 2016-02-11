@@ -111,4 +111,13 @@ namespace SeleneseTestRunner.Commands
                 throw new Exception("Text does not match");
         }
     }
+
+    class AssertCheckedCommand : SingleElementCommand
+    {
+        protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
+        {
+            if (!element.Selected)
+                throw new Exception("Element is not checked");
+        }
+    }
 }

@@ -71,7 +71,9 @@ namespace SeleneseTestRunner.Stats
         {
             Console.WriteLine("Commands: ");
 
-            var commands = new string[] { "click", "type", "assertElementPresent", "verifyElementPresent", "open", "select", "sendKeys", "clickAt", "assertText" };
+            var commands = new string[] { "click", "type", "assertElementPresent", "verifyElementPresent", 
+                "open", "select", "sendKeys", "clickAt", "assertText", "assertChecked" };
+
             var distinctCommandNames = allCommands.Select(command => command.Name)
                 .GroupBy(name => name)
                 .OrderByDescending(group => group.Count());
