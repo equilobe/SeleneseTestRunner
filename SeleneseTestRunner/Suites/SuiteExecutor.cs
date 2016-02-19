@@ -15,9 +15,11 @@ namespace SeleneseTestRunner.Suites
     public class SuiteExecutor
     {
         static Dictionary<string, string> _storedValues;
+        public static string BaseUrl { get; private set; }
 
         public static SuiteResult Execute(string suitePath, string baseUrl, string browserName)
         {
+            BaseUrl = baseUrl;
             _storedValues = new Dictionary<string, string>();
 
             var result = new SuiteResult();

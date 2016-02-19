@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SeleneseTestRunner.Suites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace SeleneseTestRunner.Commands
             try
             {
                 var result = new CommandResult { Command = command };
-                driver.Navigate().GoToUrl(command.Selector);
+                var url = GetUrl(command.Selector);
+                driver.Navigate().GoToUrl(url);
                 return result;
             }
             catch (Exception ex)
@@ -26,6 +28,14 @@ namespace SeleneseTestRunner.Commands
                     Comments = ex.Message
                 };
             }
+        }
+
+        private string GetUrl(string url)
+        {
+            if (url.StartsWith("/"))
+                return SuiteExecutor.BaseUrl + url;
+
+            return url;
         }
     }
 }
