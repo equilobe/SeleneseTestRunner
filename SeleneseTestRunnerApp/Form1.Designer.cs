@@ -50,6 +50,7 @@
             // 
             // txtSuitePath
             // 
+            this.txtSuitePath.Enabled = false;
             this.txtSuitePath.Location = new System.Drawing.Point(114, 13);
             this.txtSuitePath.Name = "txtSuitePath";
             this.txtSuitePath.Size = new System.Drawing.Size(423, 20);
