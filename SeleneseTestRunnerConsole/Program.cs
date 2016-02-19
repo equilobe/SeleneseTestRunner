@@ -18,12 +18,6 @@ namespace SeleneseTestRunnerConsole
         {
             //TestStats.ShowTestStats(@"..\..\..\..\BPApp\e2e-tests");
 
-            args = new string[] {
-                "suitePath=..\\..\\..\\..\\BPApp\\e2e-tests\\Member\\MemberSuite.html",
-                "url=https://dev.boardprospects.com",
-                "resultFilePath=C:\\Code\\test-results.html"
-            };
-
             try
             {
                 var parsedArgs = args.Select(t => t.Split('=')).ToDictionary(t => t[0], t => t[1]);
