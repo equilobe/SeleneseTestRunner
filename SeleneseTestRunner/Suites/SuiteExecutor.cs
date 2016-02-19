@@ -12,7 +12,7 @@ using OpenQA.Selenium.IE;
 
 namespace SeleneseTestRunner.Suites
 {
-    class SuiteExecutor
+    public class SuiteExecutor
     {
         static Dictionary<string, string> _storedValues;
 
@@ -47,7 +47,7 @@ namespace SeleneseTestRunner.Suites
                 .Where(t => t.GetConstructor(Type.EmptyTypes) != null)
                 .ToDictionary(t => GetBrowserNameFromTypeName(t.Name), t => t);
 
-            return browsers[browserName];
+            return browsers[browserName.ToLower()];
         }
 
         static string GetBrowserNameFromTypeName(string typeName)

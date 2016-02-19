@@ -1,16 +1,14 @@
-﻿using System;
+﻿using SeleneseTestRunner.Razor;
+using SeleneseTestRunner.Stats;
+using SeleneseTestRunner.Suites;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using SeleneseTestRunner.Commands;
-using SeleneseTestRunner.Stats;
-using SeleneseTestRunner.Suites;
-using SeleneseTestRunner.Razor;
 
-namespace SeleneseTestRunner
+namespace SeleneseTestRunnerConsole
 {
     class Program
     {
@@ -19,6 +17,12 @@ namespace SeleneseTestRunner
         static int Main(string[] args)
         {
             //TestStats.ShowTestStats(@"..\..\..\..\BPApp\e2e-tests");
+
+            args = new string[] {
+                "suitePath=..\\..\\..\\..\\BPApp\\e2e-tests\\Member\\MemberSuite.html",
+                "url=https://dev.boardprospects.com",
+                "resultFilePath=C:\\Code\\test-results.html"
+            };
 
             try
             {
@@ -64,8 +68,4 @@ namespace SeleneseTestRunner
             return 0;
         }
     }
-
-
-
-
 }

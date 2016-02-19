@@ -10,7 +10,7 @@ using SeleneseTestRunner.Suites;
 
 namespace SeleneseTestRunner.Stats
 {
-    class TestStats
+    public class TestStats
     {
 
         public static void ShowTestStats(string path)
