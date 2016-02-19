@@ -35,13 +35,13 @@ namespace SeleneseTestRunner.Commands
             if (!Commands.ContainsKey(lowerName))
                 return new CommandResult { Command = command, IsSkipped = true };
 
-            command.Parameter = SetVariables(command.Parameter);
-            command.Selector = SetVariables(command.Selector);
+            command.Parameter = ExpandVariables(command.Parameter);
+            command.Selector = ExpandVariables(command.Selector);
 
             return Commands[lowerName].Execute(driver, command);
         }
 
-        private static string SetVariables(string input)
+        private static string ExpandVariables(string input)
         {
             var regex = @"(?<=\$\{)[^}]*(?=\})";
 
