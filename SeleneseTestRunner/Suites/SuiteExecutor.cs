@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using SeleneseTestRunner.Tests;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.IE;
 
 namespace SeleneseTestRunner.Suites
 {
@@ -13,7 +16,7 @@ namespace SeleneseTestRunner.Suites
     {
         static Dictionary<string, string> _storedValues;
 
-        public static SuiteResult Execute(string suitePath, string baseUrl)
+        public static SuiteResult Execute(string suitePath, string baseUrl, string browserName)
         {
             _storedValues = new Dictionary<string, string>();
 
@@ -21,7 +24,7 @@ namespace SeleneseTestRunner.Suites
             var suite = SuiteLoader.LoadFromFile(suitePath);
             result.Name = suite.Name;
 
-            using (IWebDriver driver = new ChromeDriver())
+            using (var driver = (IWebDriver)Activator.CreateInstance(GetWebDriver(browserName)))
             {
                 driver.Navigate().GoToUrl(baseUrl);
 
@@ -33,6 +36,23 @@ namespace SeleneseTestRunner.Suites
             }
 
             return result;
+        }
+
+        static Type GetWebDriver(string browserName)
+        {
+            var browsers = typeof(OpenQA.Selenium.Chrome.ChromeDriver).Assembly.GetTypes()
+                .Where(t => typeof(IWebDriver).IsAssignableFrom(t))
+                .Where(t => t.IsClass)
+                .Where(t => !t.IsAbstract)
+                .Where(t => t.GetConstructor(Type.EmptyTypes) != null)
+                .ToDictionary(t => GetBrowserNameFromTypeName(t.Name), t => t);
+
+            return browsers[browserName];
+        }
+
+        static string GetBrowserNameFromTypeName(string typeName)
+        {
+            return typeName.Replace("Driver", "").ToLower();
         }
 
         public static string GetStoredValue(string key)
