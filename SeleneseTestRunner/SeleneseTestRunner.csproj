@@ -83,6 +83,7 @@
     <Compile Include="Commands\Implementation\Select.cs" />
     <Compile Include="Commands\Implementation\SendKeys.cs" />
     <Compile Include="Commands\Implementation\StoreAttribute.cs" />
+    <Compile Include="Commands\Implementation\StoreCommand.cs" />
     <Compile Include="Commands\Implementation\StoreEval.cs" />
     <Compile Include="Commands\Implementation\StoreValue.cs" />
     <Compile Include="Commands\Implementation\Type.cs" />
