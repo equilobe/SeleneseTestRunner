@@ -15,7 +15,7 @@ namespace SeleneseTestRunner.Commands
             {
                 var result = new CommandResult { Command = command };
                 
-                var value = ((IJavaScriptExecutor)driver).ExecuteScript(command.Selector);
+                var value = ((IJavaScriptExecutor)driver).ExecuteScript("return " + command.Selector);
                 Execute(value, command);
 
                 return result;
