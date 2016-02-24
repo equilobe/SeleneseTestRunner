@@ -1,4 +1,5 @@
-﻿using SeleneseTestRunner.Razor;
+﻿using Newtonsoft.Json;
+using SeleneseTestRunner.Razor;
 using SeleneseTestRunner.Suites;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,14 @@ namespace SeleneseTestRunnerApp
 {
     public partial class Form1 : Form
     {
+        readonly string infoFileName = ".\\testinfo.json";
+
         public Form1()
         {
             InitializeComponent();
             cmbBrowser.SelectedIndex = 0;
+
+            ReadFromFile();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -34,6 +39,12 @@ namespace SeleneseTestRunnerApp
                 return;
             }
 
+            WriteToFile();
+            Run();
+        }
+
+        private void Run()
+        {
             try
             {
                 RunTests();
@@ -69,6 +80,31 @@ namespace SeleneseTestRunnerApp
                 return;
 
             txtSuitePath.Text = fileChooser.FileName;
+        }
+
+        private void WriteToFile()
+        {
+            var info = new TestInfo
+            {
+                SuitePath = txtSuitePath.Text,
+                Url = txtUrl.Text,
+                BrowserIndex = cmbBrowser.SelectedIndex
+            };
+            var json = JsonConvert.SerializeObject(info);
+            File.WriteAllText(infoFileName, json);
+        }
+
+        private void ReadFromFile()
+        {
+            if (!File.Exists(infoFileName)) 
+                return;
+
+            var json = File.ReadAllText(infoFileName);
+            var info = JsonConvert.DeserializeObject<TestInfo>(json);
+
+            txtSuitePath.Text = info.SuitePath;
+            txtUrl.Text = info.Url;
+            cmbBrowser.SelectedIndex = info.BrowserIndex;
         }
     }
 }
