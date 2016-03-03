@@ -48,8 +48,7 @@ namespace SeleneseTestRunner.Tests
             if (commandResult.HasError)
             {
                 result.HasError = true;
-                if (command.IsAssert)
-                    result.IsFailed = true;
+                result.IsFailed = true;
             }
 
             result.CommandResults.Add(commandResult);
