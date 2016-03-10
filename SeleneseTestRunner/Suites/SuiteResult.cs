@@ -12,9 +12,11 @@ namespace SeleneseTestRunner.Suites
         public SuiteResult()
         {
             TestResults = new List<TestResult>();
+            IsAllSuccess = true;
         }
 
         public string Name { get; set; }
         public List<TestResult> TestResults { get; set; }
+        public bool IsAllSuccess { get; set; }
     }
 }

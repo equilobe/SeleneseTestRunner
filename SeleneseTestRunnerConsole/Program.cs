@@ -47,6 +47,8 @@ namespace SeleneseTestRunnerConsole
                 var result = SuiteExecutor.Execute(suitePath, baseUrl, browserName);
                 var view = new RazorParser().Parse("SuiteResult", result);
                 File.WriteAllText(resultsFile, view);
+
+                return GetReturnCodeFromResult(result);
             }
             catch (Exception ex)
             {
@@ -58,8 +60,14 @@ namespace SeleneseTestRunnerConsole
 
                 return 1;
             }
+        }
 
-            return 0;
+        private static int GetReturnCodeFromResult(SuiteResult result)
+        {
+            if (result.IsAllSuccess)
+                return 0;
+
+            return 1;
         }
     }
 }

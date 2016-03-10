@@ -28,12 +28,14 @@ namespace SeleneseTestRunner.Suites
 
             using (var driver = (IWebDriver)Activator.CreateInstance(GetWebDriver(browserName)))
             {
+                driver.Manage().Window.Maximize();
                 driver.Navigate().GoToUrl(baseUrl);
 
                 foreach (var test in suite.Tests)
                 {
                     var testResult = TestExecutor.ExecuteTest(driver, test);
                     result.TestResults.Add(testResult);
+                    result.IsAllSuccess = result.IsAllSuccess && !testResult.IsFailed;
                 }
             }
 
