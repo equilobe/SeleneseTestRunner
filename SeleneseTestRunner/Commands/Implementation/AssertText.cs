@@ -11,8 +11,11 @@ namespace SeleneseTestRunner.Commands.Implementation
     {
         protected override void Execute(IWebDriver driver, IWebElement element, CommandDesc command)
         {
-            if (!element.Text.Equals(command.Parameter))
-                throw new Exception("Text does not match.");
+            var elementText = element.Text.Trim();
+            var searchedText = command.Parameter.Trim();
+
+            if (!elementText.Equals(searchedText))
+                throw new Exception("Text does not match. Found: \"" + elementText + "\"");
         }
     }
 }
