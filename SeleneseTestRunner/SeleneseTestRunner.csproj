@@ -89,6 +89,7 @@
     <Compile Include="Commands\Implementation\Type.cs" />
     <Compile Include="Commands\Implementation\Uncheck.cs" />
     <Compile Include="Commands\Implementation\VerifyElementPresent.cs" />
+    <Compile Include="Commands\Implementation\WaitForElementNotPresent.cs" />
     <Compile Include="Commands\Implementation\WaitForElementPresent.cs" />
     <Compile Include="Commands\NavigateToUrlCommand.cs" />
     <Compile Include="Commands\JavaScriptCommand.cs" />

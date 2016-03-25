@@ -13,7 +13,7 @@ namespace SeleneseTestRunner
 {
     static class WebDriverExtensions
     {
-        const int DEFAULT_TIMEOUT = 10;
+        public const int DEFAULT_TIMEOUT = 10;
 
         public static IWebElement[] GetElements(this IWebDriver driver, string selector, int? timeout = null)
         {
@@ -33,13 +33,19 @@ namespace SeleneseTestRunner
             return elements.ToArray();
         }
 
-        static void WaitForElement(this IWebDriver driver, By by, int timeout)
+        public static void WaitForElement(this IWebDriver driver, By by, int timeout)
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
             wait.Until(d => d.FindElements(by).Any());
         }
 
-        static By GetBy(string selector)
+        public static void WaitForNotElement(this IWebDriver driver, By by, int timeout)
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+            wait.Until(d => !d.FindElements(by).Any());
+        }
+
+        public static By GetBy(string selector)
         {
             var lowerSelector = selector.ToLower();
             if (lowerSelector.StartsWith("id="))
@@ -61,7 +67,7 @@ namespace SeleneseTestRunner
             return By.XPath(selector);
         }
 
-        static ContainsSelector GetContainsSelector(string selector)
+        public static ContainsSelector GetContainsSelector(string selector)
         {
             if (selector.ToLower().StartsWith("css=") && selector.Contains(":contains("))
                 return GetCssContainsSelector(selector);
@@ -83,7 +89,7 @@ namespace SeleneseTestRunner
             };
         }
 
-        class ContainsSelector
+        public class ContainsSelector
         {
             public string SimpleSelector { get; set; }
 

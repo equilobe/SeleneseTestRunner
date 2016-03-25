@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,15 @@ namespace SeleneseTestRunner.Commands
                 var result = new CommandResult { Command = command };
 
                 var timeout = GetTimeout(command);
-                var elements = driver.GetElements(command.Selector, timeout);
-                var count = elements.Count();
+                var complexSelector = WebDriverExtensions.GetContainsSelector(command.Selector);
+                var by = WebDriverExtensions.GetBy(complexSelector.SimpleSelector);
 
+                var elements = driver.FindElements(by);
+                if (elements.Any())
+                    driver.WaitForNotElement(by, timeout.GetValueOrDefault(WebDriverExtensions.DEFAULT_TIMEOUT));
+                elements = driver.FindElements(by);
+
+                var count = elements.Count();
                 if (count > 0)
                     throw new Exception("Element was found.");
 
