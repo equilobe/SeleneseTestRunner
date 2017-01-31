@@ -77,6 +77,7 @@
     <Compile Include="Commands\Implementation\AssertNotText.cs" />
     <Compile Include="Commands\Implementation\AssertText.cs" />
     <Compile Include="Commands\Implementation\Check.cs" />
+    <Compile Include="Commands\Implementation\ClickAndWait.cs" />
     <Compile Include="Commands\Implementation\Click.cs" />
     <Compile Include="Commands\Implementation\ClickAt.cs" />
     <Compile Include="Commands\Implementation\Open.cs" />
